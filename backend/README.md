@@ -11,6 +11,7 @@ A FastAPI backend that generates multiple-choice questions on a given topic usin
 
 ## Project Structure
 
+```
 backend/
 ├── app/
 │   ├── api/
@@ -29,7 +30,7 @@ backend/
 ├── main.py                       # App entrypoint
 ├── requirements.txt
 └── .env                          # DATABASE_URL, OPENROUTER_API_KEY (not committed)
-
+```
 ## Setup & Running Locally
 
 1. **Clone the repo and navigate into backend**
