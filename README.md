@@ -123,3 +123,66 @@ flowchart TD
     DB --> Route2
     Route2 -->|return question list| Client
 ```
+## Prerequisites
+
+Before running this project, make sure you have:
+
+- **Python 3.12** installed (`python --version` to check)
+- **PostgreSQL** installed and running, with a database created for this project
+- **pip** (comes bundled with Python)
+- **Git** (to clone the repository)
+- An **OpenRouter API key** (see setup steps below)
+
+## Setting up an OpenRouter Account
+
+This project uses [OpenRouter](https://openrouter.ai) to access AI models for question generation.
+
+1. Go to [openrouter.ai](https://openrouter.ai) and sign up using Google, GitHub, or email.
+2. Navigate to **Keys** in the dashboard and create a new API key.
+3. Add credits to your account if needed — OpenRouter is pay-as-you-go, and some models offer free-tier usage while others (e.g. `openai/gpt-4o-mini`) are billed per token.
+4. Copy your API key and add it to the `.env` file as:
+```
+   OPENROUTER_API_KEY=your_key_here
+```
+5. Browse available models and pricing at [openrouter.ai/models](https://openrouter.ai/models). You can pass any supported model name in the `model` field when calling `/ai/generate`.
+
+## Setting up Ollama (optional, for local AI inference)
+
+> Note: this project currently uses OpenRouter by default. Ollama setup is only needed if you want to run AI inference locally instead of via OpenRouter.
+
+1. Download and install Ollama from [ollama.com](https://ollama.com) for your OS.
+2. Once installed, Ollama runs automatically as a background service.
+3. Pull a model:
+```bash
+   ollama pull llama3
+```
+4. Verify the model is available:
+```bash
+   ollama list
+```
+5. Ollama serves locally at `http://localhost:11434` by default — no internet connection or API key required once the model is downloaded.
+
+## Clone, Build & Run
+
+```bash
+# Clone the repository
+git clone https://github.com/PRADEEP1625/AI-Question-Generator.git
+cd AI-Question-Generator/backend
+
+# Create and activate a virtual environment
+python -m venv venv
+venv\Scripts\activate        # Windows
+source venv/bin/activate     # macOS/Linux
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create a .env file in backend/ with:
+# DATABASE_URL=postgresql://<user>:<password>@localhost:5432/<dbname>
+# OPENROUTER_API_KEY=<your_openrouter_api_key>
+
+# Run the server
+uvicorn main:app --reload
+```
+
+Once running, open `http://127.0.0.1:8000/docs` to test the API endpoints interactively. The `question` table is created automatically in PostgreSQL on first startup.
