@@ -2,7 +2,6 @@ from fastapi import FastAPI
 
 from app.database.db import Base, engine
 from app.models.question import Question
-
 from app.api.ai_routes import router as ai_router
 from app.api.questions_routes import router as questions_router
 

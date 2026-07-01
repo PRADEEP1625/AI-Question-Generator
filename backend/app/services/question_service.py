@@ -4,12 +4,10 @@ from app.models.question import Question
 
 def save_questions(
     db: Session, questions: list, topic: str, difficulty: str, model: str
-):
-
+) -> list:
     saved_questions = []
 
     for q in questions:
-
         question = Question(
             topic=topic,
             question_text=q["question"],
@@ -20,9 +18,8 @@ def save_questions(
             correct_answer=q["correct_answer"],
             explanation=q.get("explanation"),
             difficulty=difficulty,
-            ai_model=model,
+            ai_model=model,  # stores "llama3" or "gpt-4o-mini" here
         )
-
         db.add(question)
         saved_questions.append(question)
 
